@@ -1,4 +1,4 @@
-COMPILER = cc
+CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
 RED = \033[0;31m
@@ -49,10 +49,12 @@ ${CLIENT_BONUS}: ${OBJB_CLIENT}
 
 clean:
 	rm -f ${OBJM_SERVER} ${OBJM_CLIENT} ${OBJB_SERVER} ${OBJB_CLIENT}
+	@echo "${RED}🗑 Object files removed!${RESET}"
 
 fclean: clean
 	rm -f ${SERVER} ${CLIENT} ${SERVER_BONUS} ${CLIENT_BONUS}
+	@echo "${RED}🔥 Executable removed!${RESET}"
 
 re: fclean all
 
-.PHONY: all bonus clean fclean re
+.PHONY: bonus clean re

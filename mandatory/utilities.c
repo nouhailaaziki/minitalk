@@ -6,27 +6,38 @@
 /*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 17:45:59 by noaziki           #+#    #+#             */
-/*   Updated: 2025/04/18 18:03:04 by noaziki          ###   ########.fr       */
+/*   Updated: 2025/04/20 18:35:12 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-int	ft_atoi(const char *str)
+long	ft_atoi(const char *str)
 {
-	int	res;
-	int	sign;
+	long	i;
+	long	s;
+	long	r;
 
-	res = 0;
-	sign = 1;
-	while ((*str >= 9 && *str <= 13) || *str == ' ')
-		str++;
-	if (*str == '+' || *str == '-')
-		if (*str++ == '-')
-			sign = -1;
-	while (*str >= '0' && *str <= '9')
-		res = res * 10 + (*str++ - '0');
-	return (res * sign);
+	i = 0;
+	s = 1;
+	r = 0;
+	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			s *= -1;
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		if (((i > 9 && s == 1) || (i > 10 && s == -1))
+			&& r > 2147483647)
+			return (2147483648);
+		r = r * 10 + str[i] - 48;
+		i++;
+	}
+	return (r * s);
 }
 
 size_t	ft_strlen(const char *str)

@@ -6,7 +6,7 @@
 /*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 16:44:24 by noaziki           #+#    #+#             */
-/*   Updated: 2025/04/18 18:15:08 by noaziki          ###   ########.fr       */
+/*   Updated: 2025/04/20 20:47:59 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,30 @@
 
 void	ack_handler(int sig)
 {
-	(void)sig;
+	if (sig == SIGUSR1)
+		ft_putstr_fd("signal was received\n", 1);
 }
 
 void	send_char(pid_t pid, char c)
 {
 	int	bit;
+	int	k;
 
 	bit = 0;
 	while (bit < 8)
 	{
 		if ((c >> bit) & 1)
-			kill(pid, SIGUSR1);
+			k = kill(pid, SIGUSR1);
 		else
-			kill(pid, SIGUSR2);
+			k = kill(pid, SIGUSR2);
+		if (k != 0)
+		{
+			ft_putstr_fd("PID not found or invalid!\n", 2);
+			exit (1);
+		}
+		usleep(250);
+		usleep(100);
 		bit++;
-		pause();
 	}
 }
 
@@ -37,7 +45,36 @@ void	send_message(pid_t pid, const char *str)
 {
 	while (*str)
 		send_char(pid, *str++);
-	send_char(pid, '\n');
+	send_char(pid, '\0');
+}
+
+void	check_forbidden_chars(char *argv)
+{
+	int	i;
+
+	i = 0;
+	while (argv[i])
+	{
+		if (argv[i] == '+' || argv[i] == '-')
+		{
+			if (!argv[i + 1] || argv[i + 1] < '0' || argv[i + 1] > '9')
+			{
+				ft_putstr_fd("PID must be numeric value!\n", 2);
+				exit(1);
+			}
+			if (i > 0 && argv[i - 1] != ' ')
+			{
+				ft_putstr_fd("PID must be numeric value!\n", 2);
+				exit(1);
+			}
+		}
+		else if (argv[i] < '0' || argv[i] > '9')
+		{
+			ft_putstr_fd("PID must be numeric value!\n", 2);
+			exit(1);
+		}
+		i++;
+	}
 }
 
 int	main(int argc, char **argv)
@@ -46,11 +83,16 @@ int	main(int argc, char **argv)
 
 	if (argc != 3)
 	{
-		ft_putstr_fd("Usage: ./client_bonus <PID> <message>\n", 2);
+		ft_putstr_fd("Usage: ./client <PID> <message>\n", 2);
 		return (1);
 	}
-	signal(SIGUSR1, ack_handler);
+	check_forbidden_chars(argv[1]);
 	pid = ft_atoi(argv[1]);
-	send_message(pid, argv[2]);
+	signal(SIGUSR1, ack_handler);
+	if ((pid <= 2147483647 && pid > 100)
+		|| (pid > -2147483648 && pid < -100))
+		send_message(pid, argv[2]);
+	else
+		ft_putstr_fd("The PID is out of acceptable range!\n", 2);
 	return (0);
 }

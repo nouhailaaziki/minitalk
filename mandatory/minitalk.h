@@ -6,7 +6,7 @@
 /*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 16:44:18 by noaziki           #+#    #+#             */
-/*   Updated: 2025/04/18 19:35:14 by noaziki          ###   ########.fr       */
+/*   Updated: 2025/04/20 18:35:46 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 
 # include <unistd.h>
 # include <signal.h>
+# include <stdlib.h>
 
-int		ft_atoi(const char *str);
-void	ft_putstr_fd(char *s, int fd);
+long	ft_atoi(const char *str);
 void	ft_putnbr_fd(int n, int fd);
+void	ft_putstr_fd(char *s, int fd);
 
 #endif

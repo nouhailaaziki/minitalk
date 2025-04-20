@@ -6,11 +6,25 @@
 /*   By: noaziki <noaziki@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 17:45:59 by noaziki           #+#    #+#             */
-/*   Updated: 2025/04/18 18:03:39 by noaziki          ###   ########.fr       */
+/*   Updated: 2025/04/20 18:35:22 by noaziki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk_bonus.h"
+
+void	ft_bzero(void *s, size_t n)
+{
+	size_t			i;
+	unsigned char	*str;
+
+	i = 0;
+	str = (unsigned char *) s;
+	while (i < n)
+	{
+		str[i] = 0;
+		i++;
+	}
+}
 
 int	ft_atoi(const char *str)
 {
