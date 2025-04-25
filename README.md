@@ -17,12 +17,12 @@ This project is a great introduction to low-level signal handling, bitwise opera
 
 ## 📁 Project Structure
 
-minitalk
-├── client.c 	# Sends messages to the server 
-├── server.c 	# Receives and prints messages from clients 
-├── utils.c 	# Helper functions (string handling, conversions, etc.) 
-├── minitalk.h 	# Header file containing prototypes and includes 
-└── Makefile 	# Build automation
+### minitalk :
+- client.c 	 # Sends messages to the server 
+- server.c 	 # Receives and prints messages from clients 
+- utils.c 	 # Helper functions (string handling, conversions, etc.) 
+- minitalk.h # Header file containing prototypes and includes - 
+- Makefile 	 # Build automation
 
 ## 🧠 How It Works
 
@@ -39,13 +39,12 @@ minitalk
 ```bash
 make
 ```
-###2. Run Server
+### 2. Run Server
 ```bash
 ./server
 ```
-```
-# Output: Server PID: 12345
-```
+Output: Server PID: 12345
+
 ### 3. Run Client (in another terminal)
 ```bash
 ./client 12345 "Hello, world!"
@@ -70,7 +69,7 @@ Replace 12345 with the actual server PID displayed.
 
 - Message speed depends on system signal handling latency.
 
-##📌 Project Goals
+## 📌 Project Goals
 
 - Learn low-level communication via signals.
 
@@ -78,6 +77,6 @@ Replace 12345 with the actual server PID displayed.
 
 - Practice robust C development with Makefiles and modular design.
 
-📝 Author
+## 📝 Author
 Developed by **NOUHAILA AZIKI** as part of the 42 curriculum.
 
